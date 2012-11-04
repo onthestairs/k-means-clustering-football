@@ -160,7 +160,7 @@ only_midfielders = disjunct([only_2_midfielders,only_3_midfielders])
 no_keepers_no_substitutes = conjunct([no_keepers, no_substitutes])
 
 
-players = parse(allowed=only_midfielders)
+players = parse(allowed=no_keepers_no_substitutes)
 print "parsed"
 
 a = len(players)
@@ -183,23 +183,19 @@ print "normalised the stats"
 
 distance = lambda x,y: sum([(x[k]-y[k])**2 for k in list( set( x.keys() ).intersection( set(y.keys()) ) )])
 
-ks = [kmeans(3,players,distance) for i in range (5)]
+ks = [kmeans(10,players,distance) for i in range (5)]
 ks = sorted(ks, key= lambda x: x.final_error)
 
 kmeans = ks[0]
 
 def p_c():
-	print "+-------+"
-	print "|CLUSTER|"
-	print "+-------+\n"
+	print "<h3>CLUSTER</h3>"
 
 def p_q():
-	print "Quinessential Features"
-	print "----------------------"
+	print "<h4>Salient Features</h4>"
 
 def p_m():
-	print "Members"
-	print "-------"
+	print "<h4>Players</h4>"
 
 for i in range(len(kmeans.clusters)):
 	c = kmeans.clusters[i]
@@ -207,6 +203,6 @@ for i in range(len(kmeans.clusters)):
 	cluster_attrs = kmeans.mean_features[i][:10]
 	p_c()
 	p_q()
-	print "{0}\n".format(", ".join(['{0} ({1})'.format(k[0],k[1]) for k in cluster_attrs]))
+	print "{0}".format(", ".join(['<span style="color:{1};">{0}<span>'.format(k[0],'red' if (k[1]<0) else 'green') for k in cluster_attrs]))
 	p_m()
-	print "{0}\n\n".format(", ".join(cluster_names))
+	print "{0}".format(", ".join(cluster_names))
