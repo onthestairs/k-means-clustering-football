@@ -183,7 +183,7 @@ print "normalised the stats"
 
 distance = lambda x,y: sum([(x[k]-y[k])**2 for k in list( set( x.keys() ).intersection( set(y.keys()) ) )])
 
-ks = [kmeans(10,players,distance) for i in range (5)]
+ks = [kmeans(10,players,distance) for i in range (10)]
 ks = sorted(ks, key= lambda x: x.final_error)
 
 kmeans = ks[0]
