@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>K-means-clustering of Premier League footballers in the 2011/12 Season by onthestairs</title>
+    <title>k-means-clustering of Premier League footballers in the 2011/12 Season by onthestairs</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -15,7 +15,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>K-means-clustering of Premier League footballers in the 2011/12 Season</h1>
+        <h1>k-means-clustering of Premier League footballers in the 2011/12 Season</h1>
         <p></p>
 
         <p class="view"><a href="https://github.com/onthestairs/k-means-clustering-football">View the Project on GitHub <small>onthestairs/k-means-clustering-football</small></a></p>
@@ -29,6 +29,28 @@
       </header>
       <section>
         <h1>K-means-clustering of Premier League footballers in the 2011/12 Season</h1>
+
+<h2>Introduction</h2>
+
+<p>I recently saw an application of the <a href="http://en.wikipedia.org/wiki/K-means_clustering">k-means clustering</a> algorithm by Charles Leifer. He <a href="http://charlesleifer.com/blog/using-python-and-k-means-to-find-the-dominant-colors-in-images/">tried to find</a> the dominant colours of an image. I had heard of the algorithm before and this inspired me find my own application of the  technique. After a bit of pondering, I remembered the  <a href="http://www.mcfc.co.uk/the-club/mcfc-analytics">Manchester City Analytics Dataset</a> released a couple of months ago. This data was perfect to analyse. </p>
+
+<p>My idea was less to do with the means of the clusters, but rather the clusters themselves. I would use the algorithm to divide the players up into different groups in the most even way.</p>
+
+<h2>Methodology</h2>
+
+<p>The dataset is a csv file which contains a list of player performances - one row per performance for each player. The first task was to parse the data. So I created a Player class which holds all the stats for that player. I made sure I didn't capture the meta stats ("Team Id", "Venue", etc) - only the numerical stats of performance in the game. Then, I summed these stats up and divided by the number of games played to produce an 'average number of x per game' style stat.</p>
+
+<p>The next step was to normalise this data so certain stats which were high (passes per game for example) weren't overweighted against stats which were low (tackles per game for example). I did this by letting each stat be equal to the linear position of that stat between the lowest and highest stat of that type amongst players. This meant each stat was now a value between 0 and 1.</p>
+
+<p>From here, we can use the k-means algorithm to divide the players into k groups, each with a centre, minimising the distance between each player and its closest centre. As the algorithm depends on random starting conditions, I ran the algorithm 5 times and chose the best clustering. Typically, the clusterings ended up almost identically.</p>
+
+<p>I then looked to find out what the 'key' features of each cluster were. This was calculated by seeing how different each stat of the centre of a cluster was to the same stat of the centre of all the other clusters. The more different the stat was, the more 'salient' to the cluster I declared the stat. </p>
+
+<p>Initially upon doing this, I found that certain clusters were being arranged due to certain players propensity to taking free-kicks or corners. I decided that these stats weren't relevant to what the player was like during open play, so made an option to discard them.</p>
+
+<p>I also made an option to filter the players by the meta stats. This allowed me to discard goalkeepers, players that came on as a substitute, limit to only midfielders etc.</p>
+
+<h2>Results</h2>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/onthestairs">onthestairs</a></p>
