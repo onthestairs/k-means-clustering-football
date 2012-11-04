@@ -194,6 +194,10 @@ def p_c():
 def p_q():
 	print "<h4>Salient Features</h4>"
 
+def p_co():
+	print "<h4>Comments</h4>"
+	print "<p></p>"
+
 def p_m():
 	print "<h4>Players</h4>"
 
@@ -206,3 +210,5 @@ for i in range(len(kmeans.clusters)):
 	print "<p>{0}</p>".format(", ".join(['<span style="color:{1};">{0}</span>'.format(k[0],'red' if (k[1]<0) else 'green') for k in cluster_attrs]))
 	p_m()
 	print "<p>{0}</p>".format(", ".join(cluster_names))
+	p_co()
+	print "<hr />"
