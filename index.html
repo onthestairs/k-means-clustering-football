@@ -32,9 +32,9 @@
 
 <h2>Introduction</h2>
 
-<p>I recently saw an application of the <a href="http://en.wikipedia.org/wiki/K-means_clustering">k-means clustering</a> algorithm by Charles Leifer. He <a href="http://charlesleifer.com/blog/using-python-and-k-means-to-find-the-dominant-colors-in-images/">tried to find</a> the dominant colours of an image. I had heard of the algorithm before and this inspired me find my own application of the  technique. After a bit of pondering, I remembered the  <a href="http://www.mcfc.co.uk/the-club/mcfc-analytics">Manchester City Analytics Dataset</a> released a couple of months ago. This data was perfect to analyse. </p>
+<p>The <a href="http://en.wikipedia.org/wiki/K-means_clustering">k-means clustering</a> algorithm attempt to partition a set of data into k clusters in such a way that each data point is close to the average of the cluster it is in. I recently saw an application of the algorithm by Charles Leifer. He <a href="http://charlesleifer.com/blog/using-python-and-k-means-to-find-the-dominant-colors-in-images/">tried to find</a> the dominant colours of an image. I had heard of the algorithm before and this inspired me find my own application of the technique. After a bit of pondering, I remembered the  <a href="http://www.mcfc.co.uk/the-club/mcfc-analytics">Manchester City Analytics Dataset</a> released a couple of months ago. This data was perfect to analyse.</p>
 
-<p>My idea was less to do with the means of the clusters, but rather the clusters themselves. I would use the algorithm to divide the players up into different groups in the most even way.</p>
+<p>My idea was less to do with the means of the clusters, but rather the clusters themselves. I would use the algorithm to divide the players up into groups of 'similar' players.</p>
 
 <h2>Methodology</h2>
 
@@ -51,40 +51,45 @@
 <p>I also made an option to filter the players by the meta stats. This allowed me to discard goalkeepers, players that came on as a substitute, limit to only midfielders etc. Another tweak I made was to only allow players who had more than 10 games played.</p>
 
 <h2>Results</h2>
-<p>I initally was curious to see how the players would be divided if we ran the algorithm on all outfield players with the number of clusters being 10 (i.e the number of outfield players on the pitch). Here are the results:
+<p>I initally was curious to see how the players would be divided if we ran the algorithm on all outfield players with the number of clusters being 10 (i.e the number of outfield players on the pitch). Here are the results. The salient features are ordered by how indicative they are - green means the statistic is 
 
 <h3>CLUSTER</h3>
 <h4>Salient Features</h4>
 <p><span style="color:green;">Big Chances</span>, <span style="color:green;">Attempts Open Play on target</span>, <span style="color:green;">Goals from Inside Box</span>, <span style="color:green;">Shots On from Inside Box</span>, <span style="color:green;">Goals Open Play</span>, <span style="color:green;">Shots On Target inc goals</span>, <span style="color:green;">Goals</span>, <span style="color:green;">Shots Cleared off Line</span>, <span style="color:green;">Offsides</span>, <span style="color:green;">Shots Cleared off Line Inside Area</span></p>
 <h4>Players</h4>
-<p>Wayne Rooney, Emmanuel Adebayor, Fernando Torres, Shane Long, Danny Welbeck, Scott Sinclair, Clint Dempsey, Theo Walcott, Bobby Zamora, Demba Ba, Danny Graham, Sergio Agüero, Darren Bent,  Yakubu, Peter Odemwingie, Daniel Sturridge, Robin van Persie</p>
+<p>Wayne Rooney, Emmanuel Adebayor, Fernando Torres, Shane Long, Danny Welbeck, Scott Sinclair, Clint Dempsey, Theo Walcott, Bobby Zamora, Demba Ba, Danny Graham, Sergio Agüero, Darren Bent, Yakubu, Peter Odemwingie, Daniel Sturridge, Robin van Persie</p>
 <h4>Comments</h4>
-<p></p>
+<p>This appears to be a group of strikers. It's notable that both Walcott and Sturridge are in this group.</p>
 <hr />
+
 <h3>CLUSTER</h3>
 <h4>Salient Features</h4>
 <p><span style="color:green;">Headed Clearances</span>, <span style="color:green;">Total Clearances</span>, <span style="color:green;">Other Clearances</span>, <span style="color:green;">Blocks</span>, <span style="color:red;">Touches open play final third</span>, <span style="color:red;">Dispossessed</span>, <span style="color:green;">Unsuccessful Long Balls</span>, <span style="color:red;">Key Passes</span>, <span style="color:red;">Pass Backward</span>, <span style="color:red;">Unsuccessful Ball Touch</span></p>
 <h4>Players</h4>
-<p>Leon Barnett, Gareth McAuley, Chris Smalling, Wes Brown, Scott Dann, Michael Turner, Daniel Gabbidon, Carlos Cuéllar, Zak Whitbread, James Collins, Michael Williamson, Gary Cahill, Christopher Samba, Gaël Givet, Sylvain Distin, Anton Ferdinand, Richard Stearman, Richard Dunne, David Wheater, Tim Ream, Grant Hanley, Zat Knight, Clint Hill,  Steven Taylor, Johnny Heitinga, Christophe Berra, Roger Johnson,  Jonas Olsson, Russell Martin, Phil Jagielka, Robert Huth, Ryan Shawcross, Elliott Ward</p>
+<p>Leon Barnett, Gareth McAuley, Chris Smalling, Wes Brown, Scott Dann, Michael Turner, Daniel Gabbidon, Carlos Cuéllar, Zak Whitbread, James Collins, Michael Williamson, Gary Cahill, Christopher Samba, Gaël Givet, Sylvain Distin, Anton Ferdinand, Richard Stearman, Richard Dunne, David Wheater, Tim Ream, Grant Hanley, Zat Knight, Clint Hill, Steven Taylor, Johnny Heitinga, Christophe Berra, Roger Johnson, Jonas Olsson, Russell Martin, Phil Jagielka, Robert Huth, Ryan Shawcross, Elliott Ward</p>
 <h4>Comments</h4>
-<p></p>
+<p>This appears to be the group of the classic centre back.</p>
+
 <hr />
 <h3>CLUSTER</h3>
 <h4>Salient Features</h4>
 <p><span style="color:green;">Unsuccessful open play crosses</span>, <span style="color:green;">Unsuccessful crosses in the air</span>, <span style="color:green;">Successful open play crosses</span>, <span style="color:green;">Successful crosses in the air</span>, <span style="color:green;">Key Passes</span>, <span style="color:green;">Touches open play final third</span>, <span style="color:green;">Assists</span>, <span style="color:green;">Blocked Shots from Inside Box</span>, <span style="color:green;">Pass Backward</span>, <span style="color:green;">Total Unsuccessful Passes All</span></p>
 <h4>Players</h4>
-<p>Matthew Jarvis, Stewart Downing, James McClean, Jean Beausejour, Juan Mata,  Antonio Valencia, Gareth Bale, Gylfi Sigurdsson, Martin Petrov, Damien Duff,  Nani, Charles N'Zogbia</p>
+<p>Matthew Jarvis, Stewart Downing, James McClean, Jean Beausejour, Juan Mata,  Antonio Valencia, Gareth Bale, Gylfi Sigurdsson, Martin Petrov, Damien Duff, Nani, Charles N'Zogbia</p>
 <h4>Comments</h4>
-<p></p>
+<p>Traditional wingers. Put a lot of crosses in. Curious to note that Sigurdsson is in this group, having played for most of the season as a central player. </p>
 <hr />
+
 <h3>CLUSTER</h3>
 <h4>Salient Features</h4>
 <p><span style="color:green;">Unsuccessful crosses in the air</span>, <span style="color:green;">Unsuccessful open play crosses</span>, <span style="color:green;">Successful open play crosses</span>, <span style="color:green;">Key Throw In</span>, <span style="color:green;">Successful crosses in the air</span>, <span style="color:green;">Tackles Won</span>, <span style="color:green;">Total Unsuccessful Passes All</span>, <span style="color:red;">Touches open play opp six yards</span>, <span style="color:red;">Shots On from Inside Box</span>, <span style="color:red;">Blocked Shots from Inside Box</span></p>
 <h4>Players</h4>
-<p>Chris Brunt, Bacary Sagna,  José Enrique,  Sebastian Larsson, Pablo Zabaleta,  Elliott Bennett, Kyle Walker, José Bosingwa, Phil Jones, Morten Gamst Pedersen,  Ryan Taylor, Gaël Clichy, Jordan Henderson, Glen Johnson, James Milner, Leighton Baines, Joey Barton, Ryan Shotton</p>
+<p>Chris Brunt, Bacary Sagna, José Enrique, Sebastian Larsson, Pablo Zabaleta,  Elliott Bennett, Kyle Walker, José Bosingwa, Phil Jones, Morten Gamst Pedersen,  Ryan Taylor, Gaël Clichy, Jordan Henderson, Glen Johnson, James Milner, Leighton Baines, Joey Barton, Ryan Shotton</p>
 <h4>Comments</h4>
-<p></p>
+<p>This group seems to be a mixture</p>
 <hr />
+
+
 <h3>CLUSTER</h3>
 <h4>Salient Features</h4>
 <p><span style="color:red;">Pass Forward</span>, <span style="color:green;">Ground Duels lost</span>, <span style="color:green;">Foul Won Penalty</span>, <span style="color:red;">Unsuccessful Passes Middle third</span>, <span style="color:green;">Duels lost</span>, <span style="color:red;">Unsuccessful Long Passes</span>, <span style="color:red;">Total Unsuccessful Passes All</span>, <span style="color:red;">Successful Long Passes</span>, <span style="color:green;">Unsuccessful Ball Touch</span>, <span style="color:green;">Fouls Won in Danger Area inc pens</span></p>
