@@ -203,6 +203,6 @@ for i in range(len(kmeans.clusters)):
 	cluster_attrs = kmeans.mean_features[i][:10]
 	p_c()
 	p_q()
-	print "{0}".format(", ".join(['<span style="color:{1};">{0}<span>'.format(k[0],'red' if (k[1]<0) else 'green') for k in cluster_attrs]))
+	print "{0}".format(", ".join(['<span style="color:{1};">{0}</span>'.format(k[0],'red' if (k[1]<0) else 'green') for k in cluster_attrs]))
 	p_m()
 	print "{0}".format(", ".join(cluster_names))
