@@ -6,7 +6,7 @@ meta_stats = ("Date","Player ID","Player Surname","Player Forename","Team","Team
 keeper_stats = ("Turnovers","Goal Assist Goal Kick","Team Clean sheet","Team Formation","Position in Formation","Goals Conceded Outside Box", "Shots On Conceded","Goals Conceded Inside Box","Crosses not Claimed","Saves Made from Outside Box","Shots On Conceded Inside Box","Saves Made from Inside Box","Shots On Conceded Outside Box","Saves from Penalty","Big Chances Faced","Drops","Key Goal Kick","Goals Conceded","Saves Made","Catches","GK Distribution","GK Successful Distribution","GK Unsuccessful Distribution","Penalties Saved","Goal Assist Goal Kick")
 corner_stats = ("Successful Crosses Corners","Unsuccessful Crosses Corners","Corners Taken incl short corners","Corners Conceded","Successful Corners into Box","Unsuccessful Corners into Box","Short Corners","Successful Dribbles","Unsuccessful Dribbles","Successful Crosses Corners Left","Unsuccessful Crosses Corners Left","Successful Crosses Left","Unsuccessful Crosses Left","Successful Corners Left","Unsuccessful Corners Left","Successful Crosses Corners Right","Unsuccessful Crosses Corners Right","Successful Crosses Right","Unsuccessful Crosses Right","Successful Corners Right","Unsuccessful Corners Right","Successful Crosses Corners in the air","Unsuccessful Crosses Corners in the air","Key Corner","Goal Assist Corner")
 foot_specific_stats = ("Left Foot Goals","Left Foot Shots On Target","Left Foot Shots Off Target","Left Foot Blocked Shots","Right Foot Goals","Right Foot Shots On Target","Right Foot Shots Off Target","Right Foot Blocked Shots")
-penalty_stats = ("Penalties Taken","Penalty Goals","Penalties Saved","Penalties Off Target","Penalties Not Scored","Attempts from Penalties on target","Goals from penalties")
+penalty_stats = ("Penalties Taken","Penalty Goals","Penalties Saved","Penalties Off Target","Penalties Not Scored","Attempts from Penalties on target","Attempts from Penalties off target","Goals from penalties")
 set_piece_stats = ("Direct Free-kick Goals","Direct Free-kick On Target","Direct Free-kick Off Target","Blocked Direct Free-kick", "Key Set Pieces","Key Free Kick","Goal Assist Free Kick","Goal Assist Set Piece")
 throw_in_stats = ("Throw Ins to Own Player","Throw Ins to Opposition Player")
 disallowed_stats = meta_stats + keeper_stats + corner_stats + foot_specific_stats + penalty_stats + set_piece_stats + throw_in_stats
@@ -157,10 +157,15 @@ no_substitutes = lambda x: (x["Substitute On"] == '0' and x["Substitute Off"] ==
 only_2_midfielders = lambda x: (x['Team Formation'] in ('2','3') and x['Position in Formation'] in ('4','8'))
 only_3_midfielders = lambda x: (x['Team Formation'] in ('4','9') and x['Position in Formation'] in ('4','8','7')) or (x['Team Formation'] in ('5','6','7','8') and x['Position in Formation'] in ('4','8','10'))
 only_midfielders = disjunct([only_2_midfielders,only_3_midfielders])
+only_1_strikers = lambda x: (x['Team Formation'] in ('2','3','6') and x['Position in Formation'] in ('9','10'))
+only_2_strikers = lambda x: (x['Team Formation'] in ('4','5','7','8','9') and x['Position in Formation'] in ('9'))
+only_strikers = disjunct([only_1_strikers,only_2_strikers])
+only_strikers_no_substitutes = conjunct([no_substitutes,only_strikers])
+only_2_defenders = lambda x: (x['Team Formation'] in ('2','3','4','5','6','7','8','9') and x['Position in Formation'] in ('5','6'))
 no_keepers_no_substitutes = conjunct([no_keepers, no_substitutes])
 
 
-players = parse(allowed=no_keepers_no_substitutes)
+players = parse(allowed=only_strikers_no_substitutes)
 print "parsed"
 
 a = len(players)
@@ -183,13 +188,12 @@ print "normalised the stats"
 
 distance = lambda x,y: sum([(x[k]-y[k])**2 for k in list( set( x.keys() ).intersection( set(y.keys()) ) )])
 
-ks = [kmeans(10,players,distance) for i in range (10)]
+
+ks = [kmeans(3,players,distance) for i in range (10)]
+
 ks = sorted(ks, key= lambda x: x.final_error)
 
 kmeans = ks[0]
-
-def p_c():
-	print "<h3>CLUSTER</h3>"
 
 def p_q():
 	print "<h4>Salient Features</h4>"
@@ -205,7 +209,6 @@ for i in range(len(kmeans.clusters)):
 	c = kmeans.clusters[i]
 	cluster_names = [p.name for p in c]
 	cluster_attrs = kmeans.mean_features[i][:10]
-	p_c()
 	p_q()
 	print "<p>{0}</p>".format(", ".join(['<span style="color:{1};">{0}</span>'.format(k[0],'red' if (k[1]<0) else 'green') for k in cluster_attrs]))
 	p_m()
