@@ -50,28 +50,28 @@
 
 <h2 id="introduction">Introduction</h2>
 
-<p>The <a href="http://en.wikipedia.org/wiki/K-means_clustering">k-means clustering</a> algorithm attempts to partition a set of data into k clusters (each with a central point) in such a way that the sum of the distances from each point to its nearest centre is minimused. Stated more simply, the algorithm attempts to partition the data set into k partitions such that everything in each cluster is similar to each other, but different to everything in each other cluster.</p>
+<p>The <a href="http://en.wikipedia.org/wiki/K-means_clustering">k-means clustering</a> algorithm attempts to partition a set of data by choosing k 'centre points' in such a way that the sum of the distances from each point to its nearest centre point is minimised, and then assigning each point to a cluster based on which centre it is closest to. Stated more simply, the algorithm attempts to partition the data set into k partitions such that everything in each cluster is similar to each other, but different to everything in each other cluster. It is the algorithm similar to that which Google uses to group news articles which are on the same story.</p>
 
 <!-- <p>I was inspired to do this project by an application of the algorithm by Charles Leifer. He used it to <a href="http://charlesleifer.com/blog/using-python-and-k-means-to-find-the-dominant-colors-in-images/">try and find</a> the dominant colours of an image.</p> -->
 
-<p>After a bit of pondering on what data I could perform the analysis on, I remembered the <a href="http://www.mcfc.co.uk/the-club/mcfc-analytics">Manchester City Analytics Dataset</a> released a couple of months ago. This data was perfect to use. I would use the algorithm to divide the players up into groups of 'similar' players.</p>
+<p>Upon learning about this algorithm, I thought about the <a href="http://www.mcfc.co.uk/the-club/mcfc-analytics">Manchester City Analytics Dataset</a> released a couple of months ago. This data was perfect to analyse. I would use the k-means clustering algorithm to divide the players up into groups of 'similar' players.</p>
 
 <h2 id="methodology">Methodology</h2>
 
-<p>The dataset is a csv file which contains a list of player performances - one row per performance for each player. The first task was to parse the data. So I created a Player class which holds all the stats for that player. I made sure I didn't capture the meta stats ("Team Id", "Venue", etc) - only the numerical stats of performance in the game. Then, I summed these stats up and divided by the number of games played to produce an 'average number of x per game' style stat.</p>
+<p>The dataset is a csv file which contains a list of player performances - one row per performance for each player. The first task was to parse the data. So I created a Player object which holds all the stats for that player. I only captured the numerical stats of performance in the game and ommitted the meta stats ("Team Id", "Venue", etc) - only the numerical stats of performance in the game. Then, I summed these stats up and divided by the number of games played to produce an 'average number of x per game' style stat.</p>
 
 <p>The next step was to normalise this data so certain stats which were high (passes per game for example) weren't overweighted against stats which were low (tackles per game for example). I did this by letting each stat be equal to the linear position of that stat between the lowest and highest stat of that type amongst players. This meant each stat was now a value between 0 and 1.</p>
 
-<p>From here, we can use the k-means algorithm to divide the players into k groups, each with a centre, minimising the distance between each player and its closest centre. As the algorithm depends on random starting conditions, I ran the algorithm 5 times and chose the best clustering. Typically, the clusterings ended up almost identically.</p>
+<p>From here, we can use the k-means algorithm to divide the players into k groups, each with a centre, minimising the distance between each player and its closest centre. As the algorithm depends on random starting conditions, I ran the algorithm 5 times and chose the best clustering. Typically, the clusterings ended up very similar.</p>
 
-<p>I then looked to find out what the 'key' features of each cluster were. This was calculated by seeing how different each stat of the centre of a cluster was to the same stat of the centre of all the other clusters. The more different the stat was, the more 'salient' to the cluster I declared the stat. In other words, the salient features of a cluster are what defines them against the other clusters.</p>
+<p>I then looked to find out what the 'key' features of each cluster were. This was calculated by seeing how different each stat of the centre of a cluster was to the same stat of the centre of all the other clusters. The more different the stat was, the more 'salient' to the cluster I declared the stat. In other words, the salient features of a cluster are those which define them against the other clusters.</p>
 
 <p>Initially upon doing this, I found that certain clusters were being arranged due to certain players propensity to taking free-kicks or corners. I decided that these stats weren't relevant to what the player was like during open play, so made an option to discard them.</p>
 
 <p>I also made an option to filter the players by the meta stats. This allowed me to discard goalkeepers, players that came on as a substitute, limit to only midfielders etc. Another tweak I made was to only allow players who had more than 10 games played.</p>
 
 <h2 id="results">Results</h2>
-<p>I was initall curious to see how the players would be divided if we ran the algorithm on all outfield players with the number of clusters being 10 (i.e the number of outfield players on the pitch). Here are the results. The salient features are ordered by how indicative they are - green means the players in that group typically have a higher stat for that feature than players in other clusters, red means the layers in that group typically have a lower stat for that feature than players in other clusters.
+<p>I was initally curious to see how the players would be divided if we ran the algorithm on all outfield players with the number of clusters being 10 (i.e the number of outfield players on the pitch). Here are the results. The salient features are ordered by how indicative they are - green means the players in that group typically have a higher stat for that feature than players in other clusters, red means the layers in that group typically have a lower stat for that feature than players in other clusters.
 
 <h3 id="outfielders">Outfield players</h3>
 
@@ -81,7 +81,7 @@
 <h4>Players</h4>
 <p>Wayne Rooney, Emmanuel Adebayor, Fernando Torres, Shane Long, Danny Welbeck, Scott Sinclair, Clint Dempsey, Theo Walcott, Bobby Zamora, Demba Ba, Danny Graham, Sergio Agüero, Darren Bent, Yakubu, Peter Odemwingie, Daniel Sturridge, Robin van Persie</p>
 <h4>Comments</h4>
-<p>This appears to be a group of strikers. It's notable that both Walcott and Sturridge are in this group.</p>
+<p>This appears to be a group of strikers. It's notable that both Walcott and Sturridge, two wingers who would prefer to play as strikers, are in this group.</p>
 <hr />
 
 
@@ -90,7 +90,7 @@
 <h4>Players</h4>
 <p>Leon Barnett, Gareth McAuley, Chris Smalling, Wes Brown, Scott Dann, Michael Turner, Daniel Gabbidon, Carlos Cuéllar, Zak Whitbread, James Collins, Michael Williamson, Gary Cahill, Christopher Samba, Gaël Givet, Sylvain Distin, Anton Ferdinand, Richard Stearman, Richard Dunne, David Wheater, Tim Ream, Grant Hanley, Zat Knight, Clint Hill, Steven Taylor, Johnny Heitinga, Christophe Berra, Roger Johnson, Jonas Olsson, Russell Martin, Phil Jagielka, Robert Huth, Ryan Shawcross, Elliott Ward</p>
 <h4>Comments</h4>
-<p>This appears to be the group of the classic centre back, who play for teams who don't always pass it out from the back. It is interesting to find Chris Smalling in this group - all the other Manchester United centre backs are in another cluster seen below.</p>
+<p>This appears to be the group of centre backs who play for teams who don't always pass it out from the back. It is interesting to find Chris Smalling in this group - all the other Manchester United centre backs are in another cluster seen below.</p>
 
 <hr />
 
@@ -108,7 +108,7 @@
 <h4>Players</h4>
 <p>Chris Brunt, Bacary Sagna, José Enrique, Sebastian Larsson, Pablo Zabaleta,  Elliott Bennett, Kyle Walker, José Bosingwa, Phil Jones, Morten Gamst Pedersen,  Ryan Taylor, Gaël Clichy, Jordan Henderson, Glen Johnson, James Milner, Leighton Baines, Joey Barton, Ryan Shotton</p>
 <h4>Comments</h4>
-<p>This group seems to be a mixture of full backs and central midfielders who like to play low percentage balls. It is interesting that these two different positions have similar stats. They are usually thought of as totally apart.</p>
+<p>This group seems to be mainly composed of full backs but with a couple of midfielders.</p>
 <hr />
 
 
@@ -118,7 +118,7 @@
 <h4>Players</h4>
 <p> Mark Davies, Jonás Gutiérrez, Wes Hoolahan, Paul Scharner, Kevin Doyle, Leon Osman, Andrew Crofts, Micah Richards, Stéphane Sessegnon, Ramires, Tim Cahill, Gabriel Agbonlahor, Shaun Wright-Phillips, Jonathan Walters, Junior Hoilett, Mauro Formica, Jamie Mackie, Andrew Surman, Victor Moses</p>
 <h4>Comments</h4>
-<p>I find it hard to intuitively categorise this group. It appears to be mainly central midfielders and winger. Micah Richards looks a bit out of place in this group.</p>
+<p>I find it hard to intuitively categorise this group. It appears to be mainly central midfielders and wingers. Micah Richards looks a bit out of place in this group.</p>
 <hr />
 
 
@@ -144,7 +144,7 @@
 <h4>Salient Features</h4>
 <p><span style="color:green;">Through Ball</span>, <span style="color:green;">Successful Passes Opposition Half</span>, <span style="color:green;">Successful Passes Final third</span>, <span style="color:green;">Key Passes</span>, <span style="color:green;">Pass Left</span>, <span style="color:green;">Total Successful Passes All</span>, <span style="color:green;">Total Successful Passes Excl Crosses Corners</span>, <span style="color:green;">Successful Short Passes</span>, <span style="color:green;">Shots Off Target Outside Box</span>, <span style="color:green;">Blocked Shots Outside Box</span></p>
 <h4>Players</h4>
-<p>Aaron Ramsey, Jamie O'Hara,  Yaya Touré, Luka Modric, Steven Pienaar, Mikel Arteta, Samir Nasri, Frank Lampard, Tomas Rosicky, Raul Meireles, Ryan Giggs, Steven Gerrard, Adel Taarabt, James Morrison, Charlie Adam, David Silva</p>
+<p>Aaron Ramsey, Jamie O'Hara, Yaya Touré, Luka Modric, Steven Pienaar, Mikel Arteta, Samir Nasri, Frank Lampard, Tomas Rosicky, Raul Meireles, Ryan Giggs, Steven Gerrard, Adel Taarabt, James Morrison, Charlie Adam, David Silva</p>
 <h4>Comments</h4>
 <p>Creative centre midfielders. </p>
 <hr />
@@ -190,6 +190,8 @@
 <h4>Comments</h4>
 <p>Target men.</p>
 <hr />
+
+
 <h4>Salient Features</h4>
 <p><span style="color:red;">Total Clearances</span>, <span style="color:red;">Goals from Inside Box</span>, <span style="color:red;">Headed Clearances</span>, <span style="color:red;">Headed Shots On Target</span>, <span style="color:red;">Touches open play opp six yards</span>, <span style="color:red;">Headed Goals</span>, <span style="color:red;">Goals</span>, <span style="color:red;">Goals Open Play</span>, <span style="color:red;">Attempts from Corners on target</span>, <span style="color:red;">Big Chances</span></p>
 <h4>Players</h4>
@@ -200,7 +202,7 @@
 <hr />
 <hr />
 
-<p>Next I shall look at central midfielders at teams which finished in the top 6 last season. I chose k=4</p>
+<p>Next I shall look at central midfielders at teams which finished in the top 6 last season. I chose k=4.</p>
 
 <h3 id="midfielders">Top 6 Midfielders</h3>
 
@@ -209,7 +211,7 @@
 <h4>Players</h4>
 <p>Sergio Agüero</p>
 <h4>Comments</h4>
-<p>Opta questionably defines Agüero as a midfielder (at the top of a 4-2-3-1). Clearly he is a goal scorer, and so very different from the other players. He gets his own cluster.</p>
+<p>Opta questionably defines Agüero as a midfielder (at the top of a 4-2-3-1). Clearly he is more of a goal scorer, and so very different from the other players. He gets his own cluster.</p>
 <hr />
 <h4>Salient Features</h4>
 <p><span style="color:green;">Headed Shots On Target</span>, <span style="color:green;">Assists</span>, <span style="color:green;">Through Ball</span>, <span style="color:green;">Successful Flick-Ons</span>, <span style="color:red;">Goals from Corners</span>, <span style="color:red;">Goals from Outside Box</span>, <span style="color:green;">Key Passes</span>, <span style="color:green;">Shots Cleared off Line</span>, <span style="color:green;">Shots Cleared off Line Inside Area</span>, <span style="color:green;">Successful crosses in the air</span></p>
@@ -218,6 +220,7 @@
 <h4>Comments</h4>
 <p>Attacking playmakers. Create a lot of chances.</p>
 <hr />
+
 <h4>Salient Features</h4>
 <p><span style="color:red;">Touches open play opp six yards</span>, <span style="color:red;">Shots On from Inside Box</span>, <span style="color:red;">Goals from Inside Box</span>, <span style="color:red;">Big Chances</span>, <span style="color:red;">Headed Blocked Shots</span>, <span style="color:red;">Dispossessed</span>, <span style="color:red;">Unsuccessful Lay-Offs</span>, <span style="color:red;">Goals Open Play</span>, <span style="color:red;">Winning Goal</span>, <span style="color:red;">Touches open play opp box</span></p>
 <h4>Players</h4>
@@ -235,15 +238,15 @@
 <hr />
 
 <h2 id="conclusion">Conclusion</h2>
-<p>As shown from the examples above, this kind of partitioning can give us an interesting insight into the types of players footballers are. Possible real world applications could incude identifying players who would be better off playing in a different role, identifying players who don't fit in with a system and also bidentifying replacement signings.</p>
+<p>As shown from the examples above, this kind of partitioning can give us an interesting insight into the types of players footballers are. Possible real world applications could incude identifying players who would be better off playing in a different role, identifying players who don't fit in with a system and also identifying replacement signings.</p>
 
 <h2 id="improvements">Potential Improvements</h2>
-<p>Each of the stats provided in the data set are absolute. There are no stats such as pass completion rate. These could be fairly easily calculated by the program and included as a feature of the player.</p>
+<p>Each of the stats provided in the data set are ones of only magnitued. There are no stats such as pass completion rate, only successful passes and unsuccessful passes. These could be fairly easily calculated by the program and included as a feature of the player.</p>
 
-<p>Another weakness is that each stat is given an equal weight. This means that if there are ten stats on passing, and five one tackling, the passing stats are twice as important to the algorithm. This could be solved by subjectively assigning a weight to each statistic.</p>
+<p>Another weakness is that each stat is given an equal weight. This means that if there are ten stats regarding passing, and five regarding tackling, the algorithm treats the passing stats are twice as important. This could be solved by subjectively assigning a weight to each statistic.</p>
 
 <h2 id="others">Other Clusterings</h2>
-<p>Feel free fork the code and run your own clusterings. I have tried to make the code easily adaptable. If you do not have the technical skills but have a group of players you would like to partition (for example, substitute full backs away from home into 5 groups), <a href="mailto:austinplatt@gmail.com">email me</a> and I would be happy to run it for you.
+<p>I have tried to make the code easily adaptable so Feel free fork the code and run your own clusterings. If you do not have the technical skills but have a group of players you would like to partition (for example, substitute full backs away from home into 5 groups), <a href="mailto:austinplatt@gmail.com">email me</a> and I would be happy to run it for you.</p>
 
       </section>
       <footer>
