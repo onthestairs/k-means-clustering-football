@@ -169,7 +169,7 @@ players = parse(allowed=only_strikers_no_substitutes)
 print "parsed"
 
 a = len(players)
-players = [p for p in players if p.games_played > 10]
+players = [p for p in players if p.games_played > 7]
 b = len(players)
 
 print "Got rid of {0} players.".format(a-b)
