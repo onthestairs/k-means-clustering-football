@@ -157,10 +157,15 @@ no_substitutes = lambda x: (x["Substitute On"] == '0' and x["Substitute Off"] ==
 only_2_midfielders = lambda x: (x['Team Formation'] in ('2','3') and x['Position in Formation'] in ('4','8'))
 only_3_midfielders = lambda x: (x['Team Formation'] in ('4','9') and x['Position in Formation'] in ('4','8','7')) or (x['Team Formation'] in ('5','6','7','8') and x['Position in Formation'] in ('4','8','10'))
 only_midfielders = disjunct([only_2_midfielders,only_3_midfielders])
+only_1_strikers = lambda x: (x['Team Formation'] in ('2','3','6') and x['Position in Formation'] in ('9','10'))
+only_2_strikers = lambda x: (x['Team Formation'] in ('4','5','7','8','9') and x['Position in Formation'] in ('9'))
+only_strikers = disjunct([only_1_strikers,only_2_strikers])
+only_strikers_no_substitutes = conjunct([no_substitutes,only_strikers])
+only_2_defenders = lambda x: (x['Team Formation'] in ('2','3','4','5','6','7','8','9') and x['Position in Formation'] in ('5','6'))
 no_keepers_no_substitutes = conjunct([no_keepers, no_substitutes])
 
 
-players = parse(allowed=only_midfielders)
+players = parse(allowed=only_2_defenders)
 print "parsed"
 
 a = len(players)
@@ -183,7 +188,7 @@ print "normalised the stats"
 
 distance = lambda x,y: sum([(x[k]-y[k])**2 for k in list( set( x.keys() ).intersection( set(y.keys()) ) )])
 
-ks = [kmeans(3,players,distance) for i in range (5)]
+ks = [kmeans(4,players,distance) for i in range (5)]
 ks = sorted(ks, key= lambda x: x.final_error)
 
 kmeans = ks[0]
