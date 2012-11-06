@@ -62,6 +62,8 @@ def parse(file='stats.csv', allowed = lambda x: True):
 		player_list.append(player_object)
 	return player_list
 
+
+
 def get_max_stats(players):
 	max_stats = {k:0 for k in players[0].stats.keys()}
 	for p in players:
@@ -132,6 +134,39 @@ class kmeans():
 		for i in range(self.N):
 			distances = {k: sum([(self.means[i][k] - self.means[j][k]) for j in range(self.N) if not j == i]) for k in self.features}
 			self.mean_features[i] = sorted(distances.items(), key = lambda x: abs(x[1]), reverse=True)
+
+	def print_console(self):
+		for i in range(self.N):
+			print heading('CLUSTER')
+			c = self.clusters[i]
+			cluster_names = [p.name for p in c]
+			cluster_attrs = self.mean_features[i][:10]
+			print box('Salient Features')
+			print ", ".join(['{0} ({1})'.format(k[0], k[1]) for k in cluster_attrs ])
+			print box('Players')
+			print ", ".join(cluster_names)
+
+	def print_html(self):
+		for i in range(self.N):
+			c = kmeans.clusters[i]
+			cluster_names = [p.name for p in c]
+			cluster_attrs = kmeans.mean_features[i][:10]
+			print h4('Salient Features')
+			print "<p>{0}</p>".format(", ".join(['<span style="color:{1};">{0}</span>'.format(k[0],'red' if (k[1]<0) else 'green') for k in cluster_attrs]))
+			print h4('Players')
+			print "<p>{0}</p>".format(", ".join(cluster_names))
+			print h4('Comments')
+			print '<p></p>'
+			print "<hr />"
+
+def heading(s):
+	return '+' + '+'*len(s) + '+' + '\n' + '|' + s + '|' + '\n' + '+' + '+'*len(s) + '+'
+
+def box(s):
+	return '+' + '-'*len(s) + '+' + '\n' + '|' + s + '|' + '\n' + '+' + '-'*len(s) + '+'
+
+def h4(s):
+	return '<h4>'+s+'</h4>'
 
 def conjunct(props):
 	if len(props) == 2:
@@ -210,23 +245,4 @@ ks = sorted(ks, key= lambda x: x.final_error)
 
 kmeans = ks[0]
 
-def p_q():
-	print "<h4>Salient Features</h4>"
-
-def p_co():
-	print "<h4>Comments</h4>"
-	print "<p></p>"
-
-def p_m():
-	print "<h4>Players</h4>"
-
-for i in range(len(kmeans.clusters)):
-	c = kmeans.clusters[i]
-	cluster_names = [p.name for p in c]
-	cluster_attrs = kmeans.mean_features[i][:10]
-	p_q()
-	print "<p>{0}</p>".format(", ".join(['<span style="color:{1};">{0}</span>'.format(k[0],'red' if (k[1]<0) else 'green') for k in cluster_attrs]))
-	p_m()
-	print "<p>{0}</p>".format(", ".join(cluster_names))
-	p_co()
-	print "<hr />"
+kmeans.print_html()
