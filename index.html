@@ -44,14 +44,14 @@
 
 <p>From here, we can use the k-means algorithm to divide the players into k groups, each with a centre, minimising the distance between each player and its closest centre. As the algorithm depends on random starting conditions, I ran the algorithm 5 times and chose the best clustering. Typically, the clusterings ended up almost identically.</p>
 
-<p>I then looked to find out what the 'key' features of each cluster were. This was calculated by seeing how different each stat of the centre of a cluster was to the same stat of the centre of all the other clusters. The more different the stat was, the more 'salient' to the cluster I declared the stat. </p>
+<p>I then looked to find out what the 'key' features of each cluster were. This was calculated by seeing how different each stat of the centre of a cluster was to the same stat of the centre of all the other clusters. The more different the stat was, the more 'salient' to the cluster I declared the stat. In other words, the salient features of a cluster are what defines them against the other clusters.</p>
 
 <p>Initially upon doing this, I found that certain clusters were being arranged due to certain players propensity to taking free-kicks or corners. I decided that these stats weren't relevant to what the player was like during open play, so made an option to discard them.</p>
 
 <p>I also made an option to filter the players by the meta stats. This allowed me to discard goalkeepers, players that came on as a substitute, limit to only midfielders etc. Another tweak I made was to only allow players who had more than 10 games played.</p>
 
 <h2>Results</h2>
-<p>I initally was curious to see how the players would be divided if we ran the algorithm on all outfield players with the number of clusters being 10 (i.e the number of outfield players on the pitch). Here are the results. The salient features are ordered by how indicative they are - green means the statistic is 
+<p>I was initall curious to see how the players would be divided if we ran the algorithm on all outfield players with the number of clusters being 10 (i.e the number of outfield players on the pitch). Here are the results. The salient features are ordered by how indicative they are - green means the statistic is 
 
 <h3>CLUSTER</h3>
 <h4>Salient Features</h4>
@@ -86,7 +86,7 @@
 <h4>Players</h4>
 <p>Chris Brunt, Bacary Sagna, José Enrique, Sebastian Larsson, Pablo Zabaleta,  Elliott Bennett, Kyle Walker, José Bosingwa, Phil Jones, Morten Gamst Pedersen,  Ryan Taylor, Gaël Clichy, Jordan Henderson, Glen Johnson, James Milner, Leighton Baines, Joey Barton, Ryan Shotton</p>
 <h4>Comments</h4>
-<p>This group seems to be a mixture of full backs and central midfielders who like to play low percentage balls.</p>
+<p>This group seems to be a mixture of full backs and central midfielders who like to play low percentage balls. It is interesting that these two different positions have similar stats. They are usually thought of as totally apart.</p>
 <hr />
 
 
@@ -94,51 +94,57 @@
 <h4>Salient Features</h4>
 <p><span style="color:red;">Pass Forward</span>, <span style="color:green;">Ground Duels lost</span>, <span style="color:green;">Foul Won Penalty</span>, <span style="color:red;">Unsuccessful Passes Middle third</span>, <span style="color:green;">Duels lost</span>, <span style="color:red;">Unsuccessful Long Passes</span>, <span style="color:red;">Total Unsuccessful Passes All</span>, <span style="color:red;">Successful Long Passes</span>, <span style="color:green;">Unsuccessful Ball Touch</span>, <span style="color:green;">Fouls Won in Danger Area inc pens</span></p>
 <h4>Players</h4>
-<p> Mark Davies, Jonás Gutiérrez, Wes Hoolahan, Paul Scharner, Kevin Doyle, Leon Osman, Andrew Crofts, Micah Richards, Stéphane Sessegnon,  Ramires, Tim Cahill, Gabriel Agbonlahor, Shaun Wright-Phillips, Jonathan Walters, Junior Hoilett, Mauro Formica, Jamie Mackie, Andrew Surman, Victor Moses</p>
+<p> Mark Davies, Jonás Gutiérrez, Wes Hoolahan, Paul Scharner, Kevin Doyle, Leon Osman, Andrew Crofts, Micah Richards, Stéphane Sessegnon, Ramires, Tim Cahill, Gabriel Agbonlahor, Shaun Wright-Phillips, Jonathan Walters, Junior Hoilett, Mauro Formica, Jamie Mackie, Andrew Surman, Victor Moses</p>
 <h4>Comments</h4>
-<p></p>
+<p>This group appears to be mainly composed of a certain type of winger and central midfielder. Micah Richards looks a bit out of place in this group - playing nominally as a full back.</p>
 <hr />
 
 <h3>CLUSTER</h3>
 <h4>Salient Features</h4>
 <p><span style="color:green;">Tackles Lost</span>, <span style="color:green;">Tackles Won</span>, <span style="color:green;">Recoveries</span>, <span style="color:green;">Successful Long Passes</span>, <span style="color:green;">Successful Passes Middle third</span>, <span style="color:green;">Interceptions</span>, <span style="color:green;">Total Successful Passes Excl Crosses Corners</span>, <span style="color:green;">Total Successful Passes All</span>, <span style="color:green;">Pass Left</span>, <span style="color:green;">Successful Short Passes</span></p>
 <h4>Players</h4>
-<p>Patrice Evra, Youssuf Mulumbu, Moussa Dembélé, Scott Parker, Stilian Petrov, Stephen Ireland, Benoit Assou-Ekotto, Mohamed Diamé, Karl Henry, Lee Cattermole, Yohan Cabaye, Alexandre Song, Michael Carrick, Bradley Johnson, Joe Allen, Ashley Cole, Angel Rangel, Craig Gardner, David Edwards,  Cheik Tioté, Steve Sidwell, Nigel Reo-Coker, Steven N'Zonzi, Danny Murphy, Leon Britton, James McArthur, James McCarthy, Glenn Whelan, Jay Spearing, Gareth Barry, Marouane Fellaini, David Fox, Alejandro Faurlin</p>
+<p>Patrice Evra, Youssuf Mulumbu, Moussa Dembélé, Scott Parker, Stilian Petrov, Stephen Ireland, Benoit Assou-Ekotto, Mohamed Diamé, Karl Henry, Lee Cattermole, Yohan Cabaye, Alexandre Song, Michael Carrick, Bradley Johnson, Joe Allen, Ashley Cole, Angel Rangel, Craig Gardner, David Edwards, Cheik Tioté, Steve Sidwell, Nigel Reo-Coker, Steven N'Zonzi, Danny Murphy, Leon Britton, James McArthur, James McCarthy, Glenn Whelan, Jay Spearing, Gareth Barry, Marouane Fellaini, David Fox, Alejandro Faurlin</p>
 <h4>Comments</h4>
-<p></p>
+<p>A group of 'tackling' midfielders. Typically seem to be those who sit deep Interesting to note again a couple of full backs in this group.</p>
 <hr />
 
 <h3>CLUSTER</h3>
 <h4>Salient Features</h4>
 <p><span style="color:green;">Unsuccessful Long Balls</span>, <span style="color:green;">Unsuccessful Long Passes</span>, <span style="color:red;">Attempts Open Play off target</span>, <span style="color:red;">Attempts Open Play on target</span>, <span style="color:red;">Successful Lay-Offs</span>, <span style="color:red;">Dispossessed</span>, <span style="color:red;">Shots Off Target inc woodwork</span>, <span style="color:green;">Unsuccessful Passes Defensive third</span>, <span style="color:red;">Shots On Target inc goals</span>, <span style="color:red;">Key Passes</span></p>
 <h4>Players</h4>
-<p>Andy Wilkinson, Steven Reid, Ronald Zubar, Alan Hutton, Armand Traore, Emmerson Boyce, Bradley Orr, Chris Baird, Grétar Steinsson, Dean Whitehead, Marc Wilson, Sam Ricketts, Neil Taylor, Taye Taiwo, Liam Ridgewell, Kyle Naughton, Billy Jones, Nicky Shorey, Philip Neville, Stephen Warnock, Jason Lowe, Tony Hibbert, Stephen Ward, Shaun Derry, Jack Colback, Danny Simpson, Davide Santon, Phillip Bardsley, Dedryck Boyata, Stephen Kelly, Luke Young,  Martin Olsson, Nedum Onuoha, Maynor Figueroa, John O'Shea,  John Arne Riise, Kieran Richardson, Marc Tierney, Paul Robinson</p>
+<p>Andy Wilkinson, Steven Reid, Ronald Zubar, Alan Hutton, Armand Traore, Emmerson Boyce, Bradley Orr, Chris Baird, Grétar Steinsson, Dean Whitehead, Marc Wilson, Sam Ricketts, Neil Taylor, Taye Taiwo, Liam Ridgewell, Kyle Naughton, Billy Jones, Nicky Shorey, Philip Neville, Stephen Warnock, Jason Lowe, Tony Hibbert, Stephen Ward, Shaun Derry, Jack Colback, Danny Simpson, Davide Santon, Phillip Bardsley, Dedryck Boyata, Stephen Kelly, Luke Young, Martin Olsson, Nedum Onuoha, Maynor Figueroa, John O'Shea, John Arne Riise, Kieran Richardson, Marc Tierney, Paul Robinson</p>
 <h4>Comments</h4>
-<p></p>
+<p>This cluster is made up of full packs who play for teams who are lower in the table.</p>
 <hr />
+
+
 <h3>CLUSTER</h3>
 <h4>Salient Features</h4>
 <p><span style="color:green;">Through Ball</span>, <span style="color:green;">Successful Passes Opposition Half</span>, <span style="color:green;">Successful Passes Final third</span>, <span style="color:green;">Key Passes</span>, <span style="color:green;">Pass Left</span>, <span style="color:green;">Total Successful Passes All</span>, <span style="color:green;">Total Successful Passes Excl Crosses Corners</span>, <span style="color:green;">Successful Short Passes</span>, <span style="color:green;">Shots Off Target Outside Box</span>, <span style="color:green;">Blocked Shots Outside Box</span></p>
 <h4>Players</h4>
 <p>Aaron Ramsey, Jamie O'Hara,  Yaya Touré, Luka Modric, Steven Pienaar, Mikel Arteta, Samir Nasri, Frank Lampard, Tomas Rosicky, Raul Meireles, Ryan Giggs, Steven Gerrard, Adel Taarabt, James Morrison, Charlie Adam, David Silva</p>
 <h4>Comments</h4>
-<p></p>
+<p>Creative centre midfielders. </p>
 <hr />
+
+
 <h3>CLUSTER</h3>
 <h4>Salient Features</h4>
 <p><span style="color:green;">Successful Passes Defensive third</span>, <span style="color:green;">Successful Passes Own Half</span>, <span style="color:red;">Touches open play final third</span>, <span style="color:red;">Dispossessed</span>, <span style="color:red;">Key Passes</span>, <span style="color:red;">Ground Duels lost</span>, <span style="color:green;">Headed Clearances</span>, <span style="color:red;">Unsuccessful Ball Touch</span>, <span style="color:red;">Attempts Open Play off target</span>, <span style="color:green;">Total Clearances</span></p>
 <h4>Players</h4>
-<p> Gary Caldwell, Ashley Williams, Younes Kaboul, Steven Caulker, Laurent Koscielny, Jamie Carragher, Joleon Lescott, Daniel Agger, Brede Hangeland, Garry Monk, Branislav Ivanovic, John Terry, Jonny Evans, Per Mertesacker, Martin Skrtel, Vincent Kompany, William Gallas, Thomas Vermaelen, Antolin Alcaraz, Aaron Hughes, Rio Ferdinand, Ledley King, Fabricio Coloccini,  David Luiz, Philippe Senderos</p>
+<p> Gary Caldwell, Ashley Williams, Younes Kaboul, Steven Caulker, Laurent Koscielny, Jamie Carragher, Joleon Lescott, Daniel Agger, Brede Hangeland, Garry Monk, Branislav Ivanovic, John Terry, Jonny Evans, Per Mertesacker, Martin Skrtel, Vincent Kompany, William Gallas, Thomas Vermaelen, Antolin Alcaraz, Aaron Hughes, Rio Ferdinand, Ledley King, Fabricio Coloccini, David Luiz, Philippe Senderos</p>
 <h4>Comments</h4>
-<p></p>
+<p>Ball playing centre backs. It is interesting to note Coloccini is the only player without a teammate in this gorup. Perhaps good evidence to say he would fit in to a team more focussed on ball retention?</p>
 <hr />
+
+
 <h3>CLUSTER</h3>
 <h4>Salient Features</h4>
 <p><span style="color:green;">Headed Shots On Target</span>, <span style="color:green;">Unsuccessful Flick-Ons</span>, <span style="color:green;">Successful Flick-Ons</span>, <span style="color:green;">Headed Goals</span>, <span style="color:green;">Aerial Duels lost</span>, <span style="color:green;">Touches open play opp six yards</span>, <span style="color:green;">Unsuccessful Lay-Offs</span>, <span style="color:green;">Offsides</span>, <span style="color:green;">Unsuccessful Ball Touch</span>, <span style="color:green;">Headed Shots Off Target</span></p>
 <h4>Players</h4>
 <p>Steven Fletcher, Peter Crouch, Steve Morison, Grant Holt, Andy Carroll, Luis Suárez, Nicklas Bendtner</p>
 <h4>Comments</h4>
-<p></p>
+<p>Target men - curiously also Suárez, a player we would not intuitively expect to find in this group.</p>
 <hr />
 
       </section>
