@@ -30,7 +30,24 @@
       <section>
         <h1>K-means-clustering of Premier League footballers in the 2011/12 Season</h1>
 
-<h2>Introduction</h2>
+<div id="nav">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#methodology">Methodology</a></li>
+    <li>
+      <a href="#results">Results</a>
+      <ul>
+        <li><a href="#outfielders">Outfielders</a></li>
+        <li><a href="#strikers">Strikers</a></li>
+        <li><a href="#midfielders">Top 6 Midfielders</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#improvements">Improvements</a></li>
+  </ul>
+</div>
+
+<h2 id="introduction">Introduction</h2>
 
 <p>The <a href="http://en.wikipedia.org/wiki/K-means_clustering">k-means clustering</a> algorithm attempts to partition a set of data into k clusters (each with a central point) in such a way that the sum of the distances from each point to its nearest centre is minimused. Stated more simply, the algorithm attempts to partition the data set into k partitions such that everything in each cluster is similar to each other, but different to everything in each other cluster.</p>
 
@@ -38,7 +55,7 @@
 
 <p>After a bit of pondering on what data I could perform the analysis on, I remembered the <a href="http://www.mcfc.co.uk/the-club/mcfc-analytics">Manchester City Analytics Dataset</a> released a couple of months ago. This data was perfect to use. I would use the algorithm to divide the players up into groups of 'similar' players.</p>
 
-<h2>Methodology</h2>
+<h2 id="methodology">Methodology</h2>
 
 <p>The dataset is a csv file which contains a list of player performances - one row per performance for each player. The first task was to parse the data. So I created a Player class which holds all the stats for that player. I made sure I didn't capture the meta stats ("Team Id", "Venue", etc) - only the numerical stats of performance in the game. Then, I summed these stats up and divided by the number of games played to produce an 'average number of x per game' style stat.</p>
 
@@ -52,10 +69,10 @@
 
 <p>I also made an option to filter the players by the meta stats. This allowed me to discard goalkeepers, players that came on as a substitute, limit to only midfielders etc. Another tweak I made was to only allow players who had more than 10 games played.</p>
 
-<h2>Results</h2>
+<h2 id="results">Results</h2>
 <p>I was initall curious to see how the players would be divided if we ran the algorithm on all outfield players with the number of clusters being 10 (i.e the number of outfield players on the pitch). Here are the results. The salient features are ordered by how indicative they are - green means the players in that group typically have a higher stat for that feature than players in other clusters, red means the layers in that group typically have a lower stat for that feature than players in other clusters.
 
-<h3>Outfield players</h3>
+<h3 id="outfielders">Outfield players</h3>
 
 <hr />
 <h4>Salient Features</h4>
@@ -154,7 +171,7 @@
 <hr />
 
 <p>Next, I decided to see how the strikers in the league would be partitioned. I chose k to be 3. I included all players with more than five 90 minutes. Here are the results.</p>
-<h3>Strikers</h3>
+<h3 id="strikers">Strikers</h3>
 
 
 <hr />
@@ -181,6 +198,51 @@
 <hr />
 <hr />
 <hr />
+
+<p>Next I shall look at central midfielders at teams which finished in the top 6 last season. I chose k=4</p>
+
+<h3 id="midfielders">Top 6 Midfielders</h3>
+
+<h4>Salient Features</h4>
+<p><span style="color:green;">Offsides</span>, <span style="color:green;">Goals from Corners</span>, <span style="color:green;">Attempts from Throws off target</span>, <span style="color:green;">Shots Off from Inside Box</span>, <span style="color:green;">Big Chances</span>, <span style="color:green;">Headed Blocked Shots</span>, <span style="color:green;">Unsuccessful Lay-Offs</span>, <span style="color:green;">Take-Ons Overrun</span>, <span style="color:green;">Touches open play opp box</span>, <span style="color:green;">Winning Goal</span></p>
+<h4>Players</h4>
+<p>Sergio Agüero</p>
+<h4>Comments</h4>
+<p>Opta questionably defines Agüero as a midfielder (at the top of a 4-2-3-1). Clearly he is a goal scorer, and so very different from the other players. He gets his own cluster.</p>
+<hr />
+<h4>Salient Features</h4>
+<p><span style="color:green;">Headed Shots On Target</span>, <span style="color:green;">Assists</span>, <span style="color:green;">Through Ball</span>, <span style="color:green;">Successful Flick-Ons</span>, <span style="color:red;">Goals from Corners</span>, <span style="color:red;">Goals from Outside Box</span>, <span style="color:green;">Key Passes</span>, <span style="color:green;">Shots Cleared off Line</span>, <span style="color:green;">Shots Cleared off Line Inside Area</span>, <span style="color:green;">Successful crosses in the air</span></p>
+<h4>Players</h4>
+<p>Rafael van der Vaart, Frank Lampard, Aaron Ramsey, Ryan Giggs, Tomas Rosicky</p>
+<h4>Comments</h4>
+<p>Attacking playmakers. Create a lot of chances.</p>
+<hr />
+<h4>Salient Features</h4>
+<p><span style="color:red;">Touches open play opp six yards</span>, <span style="color:red;">Shots On from Inside Box</span>, <span style="color:red;">Goals from Inside Box</span>, <span style="color:red;">Big Chances</span>, <span style="color:red;">Headed Blocked Shots</span>, <span style="color:red;">Dispossessed</span>, <span style="color:red;">Unsuccessful Lay-Offs</span>, <span style="color:red;">Goals Open Play</span>, <span style="color:red;">Winning Goal</span>, <span style="color:red;">Touches open play opp box</span></p>
+<h4>Players</h4>
+<p>Gareth Barry, Michael Carrick, Darren Fletcher, Yohan Cabaye, Yaya Touré, Raul Meireles, Mikel Arteta, James Milner, Scott Parker, Nigel de Jong, Luka Modric, Alexandre Song, Danny Guthrie</p>
+<h4>Comments</h4>
+<p>Deep lying playmakers.</p>
+<hr />
+
+<h4>Salient Features</h4>
+<p><span style="color:green;">Headed Clearances</span>, <span style="color:green;">Total Clearances</span>, <span style="color:green;">Aerial Duels won</span>, <span style="color:red;">Goals Open Play</span>, <span style="color:red;">Blocked Shots from Inside Box</span>, <span style="color:red;">Touches open play final third</span>, <span style="color:red;">Headed Blocked Shots</span>, <span style="color:red;">Goals</span>, <span style="color:red;">Goals from Inside Box</span>, <span style="color:red;">Winning Goal</span></p>
+<h4>Players</h4>
+<p>Michael Essien, Ramires, Cheik Tioté, Sandro, Oriol Romeu, John Obi Mikel</p>
+<h4>Comments</h4>
+<p>Defensive midfielders. Four are Chelsea players which indicates as a team they have a different approach to the other top 6 teams. It seems Tioté could be a good signing to replace Essien.</p>
+<hr />
+
+<h2 id="conclusion">Conclusion</h2>
+<p>As shown from the examples above, this kind of partitioning can give us an interesting insight into the types of players footballers are. Possible real world applications could incude identifying players who would be better off playing in a different role, identifying players who don't fit in with a system and also bidentifying replacement signings.</p>
+
+<h2 id="improvements">Potential Improvements</h2>
+<p>Each of the stats provided in the data set are absolute. There are no stats such as pass completion rate. These could be fairly easily calculated by the program and included as a feature of the player.</p>
+
+<p>Another weakness is that each stat is given an equal weight. This means that if there are ten stats on passing, and five one tackling, the passing stats are twice as important to the algorithm. This could be solved by subjectively assigning a weight to each statistic.</p>
+
+<h2>Other Clusterings</h2>
+<p>Feel free fork the code and run your own clusterings. I have tried to make the code easily adaptable. If you do not have the technical skills but have a group of players you would like to partition (for example, substitute full backs away from home into 5 groups), <a href="mailto:austinplatt@gmail.com">email me</a> and I would be happy to run it for you.
 
       </section>
       <footer>
