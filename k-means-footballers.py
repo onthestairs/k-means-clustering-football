@@ -151,25 +151,40 @@ def disjunct(props):
 		g = disjunct(props)
 		return lambda x: (f(x)) or (g(x))
 
+#team filters
+only_man_u = lambda x: (x["Team Id"] == '1')
+only_man_city = lambda x: (x["Team Id"] == '43')
+only_arsenal = lambda x: (x["Team Id"] == '3')
+only_tottenham = lambda x: (x["Team Id"] == '6')
+only_chelsea = lambda x: (x["Team Id"] == '8')
+only_newcastle = lambda x: (x["Team Id"] == '4')
+only_top_6 = disjunct([only_man_u, only_man_city, only_arsenal, only_chelsea, only_tottenham, only_newcastle])
 
-no_keepers = lambda x: (x["Position Id"] != '1')
+#substitutes
 no_substitutes = lambda x: (x["Substitute On"] == '0' and x["Substitute Off"] == '0')
+
+#positional filters
+no_keepers = lambda x: (x["Position Id"] != '1')
 only_2_midfielders = lambda x: (x['Team Formation'] in ('2','3') and x['Position in Formation'] in ('4','8'))
 only_3_midfielders = lambda x: (x['Team Formation'] in ('4','9') and x['Position in Formation'] in ('4','8','7')) or (x['Team Formation'] in ('5','6','7','8') and x['Position in Formation'] in ('4','8','10'))
 only_midfielders = disjunct([only_2_midfielders,only_3_midfielders])
 only_1_strikers = lambda x: (x['Team Formation'] in ('2','3','6') and x['Position in Formation'] in ('9','10'))
 only_2_strikers = lambda x: (x['Team Formation'] in ('4','5','7','8','9') and x['Position in Formation'] in ('9'))
 only_strikers = disjunct([only_1_strikers,only_2_strikers])
-only_strikers_no_substitutes = conjunct([no_substitutes,only_strikers])
 only_2_defenders = lambda x: (x['Team Formation'] in ('2','3','4','5','6','7','8','9') and x['Position in Formation'] in ('5','6'))
+
+#combos
+only_strikers_no_substitutes = conjunct([no_substitutes,only_strikers])
 no_keepers_no_substitutes = conjunct([no_keepers, no_substitutes])
+only_man_u = conjunct([only_man_u,no_keepers_no_substitutes])
+only_top_6_midfielders = conjunct([only_top_6,only_midfielders,no_substitutes])
 
 
-players = parse(allowed=only_strikers_no_substitutes)
+players = parse(allowed=only_top_6_midfielders)
 print "parsed"
 
 a = len(players)
-players = [p for p in players if p.games_played > 7]
+players = [p for p in players if p.games_played > 5]
 b = len(players)
 
 print "Got rid of {0} players.".format(a-b)
@@ -189,7 +204,7 @@ print "normalised the stats"
 distance = lambda x,y: sum([(x[k]-y[k])**2 for k in list( set( x.keys() ).intersection( set(y.keys()) ) )])
 
 
-ks = [kmeans(3,players,distance) for i in range (10)]
+ks = [kmeans(4,players,distance) for i in range (10)]
 
 ks = sorted(ks, key= lambda x: x.final_error)
 
