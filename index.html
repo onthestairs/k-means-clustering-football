@@ -32,9 +32,11 @@
 
 <h2>Introduction</h2>
 
-<p>The <a href="http://en.wikipedia.org/wiki/K-means_clustering">k-means clustering</a> algorithm attempt to partition a set of data into k clusters in such a way that each data point is close to the average of the cluster it is in. I recently saw an application of the algorithm by Charles Leifer. He <a href="http://charlesleifer.com/blog/using-python-and-k-means-to-find-the-dominant-colors-in-images/">tried to find</a> the dominant colours of an image. I had heard of the algorithm before and this inspired me find my own application of the technique. After a bit of pondering, I remembered the  <a href="http://www.mcfc.co.uk/the-club/mcfc-analytics">Manchester City Analytics Dataset</a> released a couple of months ago. This data was perfect to analyse.</p>
+<p>The <a href="http://en.wikipedia.org/wiki/K-means_clustering">k-means clustering</a> algorithm attempt to partition a set of data into k clusters (each with a central point) in such a way that the sum of the distances from each point to its nearest centre is minimused. Stated more simply, the algorithm attempts to partition the data set into k partitions such that everything in each cluster is similar to each other, but different to everything in each other cluster.</p>
 
-<p>My idea was less to do with the means of the clusters, but rather the clusters themselves. I would use the algorithm to divide the players up into groups of 'similar' players.</p>
+<!-- <p>I was inspired to do this project by an application of the algorithm by Charles Leifer. He used it to <a href="http://charlesleifer.com/blog/using-python-and-k-means-to-find-the-dominant-colors-in-images/">try and find</a> the dominant colours of an image.</p> -->
+
+<p>After a bit of pondering on what data I could perform the analysis on, I remembered the <a href="http://www.mcfc.co.uk/the-club/mcfc-analytics">Manchester City Analytics Dataset</a> released a couple of months ago. This data was perfect to use. I would use the algorithm to divide the players up into groups of 'similar' players.</p>
 
 <h2>Methodology</h2>
 
