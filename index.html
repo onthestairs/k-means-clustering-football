@@ -59,7 +59,7 @@
 
 <h2 id="methodology">Methodology</h2>
 
-<p>The dataset is a csv file which contains a list of player performances - one row per performance for each player. The first task was to parse the data. So I created a Player object which holds all the stats for that player. I only captured the numerical stats of performance in the game and ommitted the meta stats ("Team Id", "Venue", etc). Then, I summed these stats up and divided by the number of games played to produce an 'average number of x per game' style stat.</p>
+<p>The dataset is a csv file which contains a list of player performances - one row per performance for each player. The first task was to parse the data. I created a Player object which holds all the stats for that player and only captured the numerical stats of performance in the game and ommitted the meta stats ("Team Id", "Venue", etc). Then, I summed these stats up and divided by the number of games played to produce an 'average number of x per game' style stat.</p>
 
 <p>The next step was to normalise this data so stats which were high (passes per game for example) weren't overweighted against stats which were low (tackles per game for example). I did this by letting each stat be equal to the linear position of that stat between the lowest and highest stat of that type amongst players. This meant each stat was now a value between 0 and 1.</p>
 
@@ -246,7 +246,7 @@
 
 <h4>Salient Features</h4>
 <p><span style="color:green;">Through Ball</span>, <span style="color:green;">Successful Short Passes</span>, <span style="color:green;">Successful Passes Middle third</span>, <span style="color:green;">Total Successful Passes Excl Crosses Corners</span>, <span style="color:green;">Total Successful Passes All</span>, <span style="color:green;">Pass Right</span>, <span style="color:green;">Big Chances</span>, <span style="color:green;">Pass Left</span>, <span style="color:green;">Attempts Open Play on target</span>, <span style="color:green;">Successful Passes Own Half</span></p>
-<h4>Players</h4>
+<h4>Teams</h4>
 <p>Liverpool, Fulham, Manchester City, Manchester United, Arsenal, Tottenham Hotspur, Chelsea, Swansea City</p>
 <h4>Comments</h4>
 <p>The top teams. Swansea who finished 11th are the lowest placed team in this group.</p>
@@ -254,7 +254,7 @@
 
 <h4>Salient Features</h4>
 <p><span style="color:red;">Through Ball</span>, <span style="color:red;">Successful Short Passes</span>, <span style="color:red;">Successful Passes Middle third</span>, <span style="color:red;">Total Successful Passes Excl Crosses Corners</span>, <span style="color:red;">Total Successful Passes All</span>, <span style="color:red;">Pass Right</span>, <span style="color:red;">Big Chances</span>, <span style="color:red;">Pass Left</span>, <span style="color:red;">Attempts Open Play on target</span>, <span style="color:red;">Successful Passes Own Half</span></p>
-<h4>Players</h4>
+<h4>Teams</h4>
 <p>Everton, Wolverhampton Wanderers, Norwich City, Bolton Wanderers, West Bromwich Albion, Queens Park Rangers, Wigan Athletic, Newcastle United, Aston Villa, Blackburn Rovers, Sunderland, Stoke City</p>
 <h4>Comments</h4>
 <p>Mainly composed of teams in the bottom half. It is interesting that 5th placed Newcastle are in this cluster. They are stylistically different from the other top teams.</p>
@@ -264,12 +264,12 @@
 <p>As shown from the examples above, this kind of partitioning can give us an interesting insight into the types of players footballers are. Possible real world applications could incude identifying players who would be better off playing in a different role, identifying players who don't fit in with a system and also identifying replacement signings.</p>
 
 <h2 id="improvements">Potential Improvements</h2>
-<p>Each of the stats provided in the data set are ones of only magnitued. There are no stats such as pass completion rate, only successful passes and unsuccessful passes. These could be fairly easily calculated by the program and included as a feature of the player.</p>
+<p>Each of the stats provided in the data set are ones of only magnitude. There are no stats such as pass completion rate, only successful passes and unsuccessful passes. These could be fairly easily calculated by the program and included as a feature of the player.</p>
 
 <p>Another weakness is that each stat is given an equal weight. This means that if there are ten stats regarding passing, and five regarding tackling, the algorithm treats the passing stats are twice as important. This could be solved by subjectively assigning a weight to each statistic.</p>
 
 <h2 id="others">Other Clusterings</h2>
-<p>I have tried to make the code easily adaptable so Feel free fork the code and run your own clusterings. If you do not have the technical skills but have a group of players you would like to partition (for example, substitute full backs away from home into 5 groups), <a href="mailto:austinplatt@gmail.com">email me</a> and I would be happy to run it for you.</p>
+<p>I have tried to make the code easily adaptable so feel free  to fork the code and run your own clusterings. If you do not have the technical skills but have a group of players you would like to partition (for example, substitute full backs away from home into 5 groups), <a href="mailto:austinplatt@gmail.com">email me</a> and I would be happy to run it for you.</p>
 
       </section>
       <footer>
