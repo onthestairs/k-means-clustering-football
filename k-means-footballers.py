@@ -245,4 +245,4 @@ ks = sorted(ks, key= lambda x: x.final_error)
 
 kmeans = ks[0]
 
-kmeans.print_html()
+kmeans.print_console()
